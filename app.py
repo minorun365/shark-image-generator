@@ -73,15 +73,14 @@ def main():
         st.write("""
         ### 必要な準備:
         1. **AWS認証情報の設定**
-           - `.env`ファイルを作成し、AWS認証情報を設定
-           - Bedrock Claude 3.5 Sonnetへのアクセス権限が必要
+           - Streamlit Cloudの場合：Settings > Secretsで設定
+           - ローカルの場合：`.env`ファイルを作成し、AWS認証情報を設定
         
-        2. **MCPサーバーの起動**
-           ```bash
-           uvx mcp-server-aws-nova-canvas
-           ```
+        2. **必要なAWSサービス**
+           - Amazon Bedrock Claude 3.7 Sonnetへのアクセス権限
+           - Amazon Bedrock Nova Canvasへのアクセス権限
         
-        3. **アプリの起動**
+        3. **ローカル実行の場合**
            ```bash
            pip install -r requirements.txt
            streamlit run app.py
