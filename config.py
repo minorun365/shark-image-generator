@@ -5,13 +5,13 @@ from dotenv import load_dotenv
 # ローカル環境では.envファイルを読み込み
 load_dotenv()
 
+# Streamlit Cloudの場合、環境変数を設定
+if "aws" in st.secrets:
+    os.environ["AWS_ACCESS_KEY_ID"] = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
+    os.environ["AWS_SECRET_ACCESS_KEY"] = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
+    os.environ["AWS_DEFAULT_REGION"] = st.secrets["aws"]["AWS_DEFAULT_REGION"]
+
 class Config:
-    # Streamlit CloudではSecretsを使用、ローカルでは環境変数を使用
-    if hasattr(st, 'secrets') and 'default' in st.secrets:
-        AWS_REGION = st.secrets['default']['AWS_REGION']
-        AWS_ACCESS_KEY_ID = st.secrets['default']['AWS_ACCESS_KEY_ID']
-        AWS_SECRET_ACCESS_KEY = st.secrets['default']['AWS_SECRET_ACCESS_KEY']
-    else:
-        AWS_REGION = os.getenv('AWS_REGION', 'us-east-1')
-        AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_REGION = os.getenv('AWS_DEFAULT_REGION', os.getenv('AWS_REGION', 'us-east-1'))
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
